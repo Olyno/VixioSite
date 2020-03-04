@@ -34,16 +34,16 @@
     magic-string "^0.25.2"
     resolve "^1.11.0"
 
-"@rollup/plugin-node-resolve@6.1.0":
-  version "6.1.0"
-  resolved "https://registry.yarnpkg.com/@rollup/plugin-node-resolve/-/plugin-node-resolve-6.1.0.tgz#0d2909f4bf606ae34d43a9bc8be06a9b0c850cf0"
-  integrity sha512-Cv7PDIvxdE40SWilY5WgZpqfIUEaDxFxs89zCAHjqyRwlTSuql4M5hjIuc5QYJkOH0/vyiyNXKD72O+LhRipGA==
+"@rollup/plugin-node-resolve@7.1.1":
+  version "7.1.1"
+  resolved "https://registry.yarnpkg.com/@rollup/plugin-node-resolve/-/plugin-node-resolve-7.1.1.tgz#8c6e59c4b28baf9d223028d0e450e06a485bb2b7"
+  integrity sha512-14ddhD7TnemeHE97a4rLOhobfYvUVcaYuqTnL8Ti7Jxi9V9Jr5LY7Gko4HZ5k4h4vqQM0gBQt6tsp9xXW94WPA==
   dependencies:
-    "@rollup/pluginutils" "^3.0.0"
+    "@rollup/pluginutils" "^3.0.6"
     "@types/resolve" "0.0.8"
     builtin-modules "^3.1.0"
     is-module "^1.0.0"
-    resolve "^1.11.1"
+    resolve "^1.14.2"
 
 "@rollup/pluginutils@^3.0.0":
   version "3.0.4"
@@ -51,6 +51,13 @@
   integrity sha512-buc0oeq2zqQu2mpMyvZgAaQvitikYjT/4JYhA4EXwxX8/g0ZGHoGiX+0AwmfhrNqH4oJv67gn80sTZFQ/jL1bw==
   dependencies:
     estree-walker "^0.6.1"
+
+"@rollup/pluginutils@^3.0.6":
+  version "3.0.8"
+  resolved "https://registry.yarnpkg.com/@rollup/pluginutils/-/pluginutils-3.0.8.tgz#4e94d128d94b90699e517ef045422960d18c8fde"
+  integrity sha512-rYGeAc4sxcZ+kPG/Tw4/fwJODC3IXHYDH4qusdN/b6aLw5LPUbzpecYbEJh4sVQGPFJxd2dBU4kc1H3oy9/bnw==
+  dependencies:
+    estree-walker "^1.0.1"
 
 "@types/estree@*":
   version "0.0.42"
@@ -884,10 +891,17 @@ resolve-url@^0.2.1:
   resolved "https://registry.yarnpkg.com/resolve-url/-/resolve-url-0.2.1.tgz#2c637fe77c893afd2a663fe21aa9080068e2052a"
   integrity sha1-LGN/53yJOv0qZj/iGqkIAGjiBSo=
 
-resolve@^1.11.0, resolve@^1.11.1:
+resolve@^1.11.0:
   version "1.14.2"
   resolved "https://registry.yarnpkg.com/resolve/-/resolve-1.14.2.tgz#dbf31d0fa98b1f29aa5169783b9c290cb865fea2"
   integrity sha512-EjlOBLBO1kxsUxsKjLt7TAECyKW6fOh1VRkykQkKGzcBbjjPIxBqGh0jf7GJ3k/f5mxMqW3htMD3WdTUVtW8HQ==
+  dependencies:
+    path-parse "^1.0.6"
+
+resolve@^1.14.2:
+  version "1.15.1"
+  resolved "https://registry.yarnpkg.com/resolve/-/resolve-1.15.1.tgz#27bdcdeffeaf2d6244b95bb0f9f4b4653451f3e8"
+  integrity sha512-84oo6ZTtoTUpjgNEr5SJyzQhzL72gaRodsSfyxC/AXRvwu0Yse9H8eF9IpGo7b8YetZhlI6v7ZQ6bKBFV/6S7w==
   dependencies:
     path-parse "^1.0.6"
 
