@@ -367,7 +367,7 @@ export default {
 			name: "Member Permission in GuildChannel",
 			description: "Allow, or deny a role or a member permissions to a channel",
 			patterns: [
-				"(allow|1¦deny) %roles/members% [the] permission[s] %permissions% [in %channels%] [with %bot/string%]",
+				"(allow|1ï¿½deny) %roles/members% [the] permission[s] %permissions% [in %channels%] [with %bot/string%]",
 			],
 			example: "discord command grant <text> <permission>:,\ttrigger:,\t\tif id of event-guild is not \"219967335266648065\":,\t\t\tstop,\t\tset {_role} to role with id arg-1,\t\tallow {_role} the permission arg-2 in event-channel,\t\tdeny the public role of event-guild the permission arg-2 in event-channel"
 		},
@@ -975,8 +975,7 @@ export default {
 				"[the] (prev[ious]|old) [voice] channel",
 				"[the] new [voice] channel",
 			],
-			example: "on member switch voice channel:
-,\tbroadcast \"%event-user% left %old channel% and joined %new channel%\""
+			example: "on member switch voice channel:,\tbroadcast \"%event-user% left %old channel% and joined %new channel%\""
 		},
 		{
 			name: "Color",
@@ -1820,8 +1819,7 @@ export default {
 			patterns: [
 				"member (switch|move) [voice] channel [seen by %-string%]",
 			],
-			example: "on member switch voice channel:
-,\tbroadcast \"%event-user% left %old channel% and joined %new channel%\""
+			example: "on member switch voice channel:,\tbroadcast \"%event-user% left %old channel% and joined %new channel%\""
 		},
 		{
 			name: "Guild Join",
