@@ -104,6 +104,14 @@ export default {
 			],
 			example: "command $scope:,\ttrigger:,\t\tmake a new embed:,\t\t\tset color of embed the embed to red,\t\t\tset url of the embed to \"https://google.com\",\t\t\tset title of the embed to \"Google!\",\t\tset {_embed} to last made embed"
 		},
+		{
+			name: "Create Invite to",
+			description: "Create an invitation to a channel within a guild.",
+			patterns: [
+				"(make|create) [a[n]] invite to %channel% [(with|as) %bot/string%]",
+			],
+			example: "discord command invite:,\tprefixes: /,\ttrigger:,\t\tcreate invite to event-channel:,\t\t\tset the max usage of the invite to 1,\t\treply with \"Done!\""
+		},
 	],
 	Effects: [
 		{
@@ -324,14 +332,6 @@ export default {
 			example: "discord command $createEmote <text> <text>:,\ttrigger:,\t\tcreate emote arg-1 with name arg-2 ,\t\twait 2 seconds,\t\treply with \"%reaction arg-2%\""
 		},
 		{
-			name: "Create Invite to Guild",
-			description: "Create a invitation to a channel. Can store the newly created invite with the storage option or use the last created invite expression.",
-			patterns: [
-				"create a[n] (invite|invitation) to %channel% [with %bot/string%] [and store it in %-objects%]",
-			],
-			example: "discord command invite:,\ttrigger:,\t\tcreate an invite to event-channel,\t\treply with \"%the last created invite%\""
-		},
-		{
 			name: "Delete Discord Entity",
 			description: "Delete any deletable discord entity",
 			patterns: [
@@ -367,9 +367,25 @@ export default {
 			name: "Member Permission in GuildChannel",
 			description: "Allow, or deny a role or a member permissions to a channel",
 			patterns: [
-				"(allow|1ï¿½deny) %roles/members% [the] permission[s] %permissions% [in %channels%] [with %bot/string%]",
+				"(allow|1¦deny) %roles/members% [the] permission[s] %permissions% [in %channels%] [with %bot/string%]",
 			],
 			example: "discord command grant <text> <permission>:,\ttrigger:,\t\tif id of event-guild is not \"219967335266648065\":,\t\t\tstop,\t\tset {_role} to role with id arg-1,\t\tallow {_role} the permission arg-2 in event-channel,\t\tdeny the public role of event-guild the permission arg-2 in event-channel"
+		},
+		{
+			name: "Create Invite to Channel",
+			description: "Create a invitation to a channel. Can store the newly created invite with the storage option or use the last created invite expression.",
+			patterns: [
+				"create a[n] (invite|invitation) to %channel% [with %bot/string%] [and store it in %-objects%]",
+			],
+			example: "discord command invite:,\ttrigger:,\t\tcreate an invite to event-channel,\t\treply with \"%the last created invite%\""
+		},
+		{
+			name: "Retrieve Invites of",
+			description: "Retrieve invites in a Guild or a Channel in a Guild. Must use the last retrieved invites expression to get them after calling this.",
+			patterns: [
+				"(grab|retrieve) the invite(s| link[s]) of %guild/channel%",
+			],
+			example: "discord command test:,\tprefixes: /,\ttrigger:,\t\tretrieve the invites of event-guild,\t\treply with \"%last grabbed invites%\""
 		},
 		{
 			name: "Ban user",
@@ -959,7 +975,8 @@ export default {
 				"[the] (prev[ious]|old) [voice] channel",
 				"[the] new [voice] channel",
 			],
-			example: "on member switch voice channel:,\tbroadcast \"%event-user% left %old channel% and joined %new channel%\""
+			example: "on member switch voice channel:
+,\tbroadcast \"%event-user% left %old channel% and joined %new channel%\""
 		},
 		{
 			name: "Color",
@@ -981,8 +998,8 @@ export default {
 			name: "Guild of",
 			description: "Get the guild of various types.",
 			patterns: [
-				"[the] guild[s] of %channel/voicechannel/message/emote/category/role/member%",
-				"%channel/voicechannel/message/emote/category/role/member%'[s] guild[s]",
+				"[the] guild[s] of %channel/voicechannel/message/emote/category/role/member/invite%",
+				"%channel/voicechannel/message/emote/category/role/member/invite%'[s] guild[s]",
 			],
 			example: "set {_guild} to guild of event-message"
 		},
@@ -1031,12 +1048,28 @@ export default {
 			example: "on nickname change:,\tbroadcast \"%event-member% has changed their nick from %prev nick% to %new nick%\""
 		},
 		{
+			name: "Added or Removed roles.",
+			description: "Get the roles that were added or removed in the member role added and member role removed events.",
+			patterns: [
+				"[the] role[s]",
+			],
+			example: "SOON"
+		},
+		{
 			name: "Search Results",
 			description: "Represents the search results from the last usage of the search effect. The search results get reset every time the search effect is used.",
 			patterns: [
 				"[the] [last] search results",
 			],
 			example: "on join:,\tsearch youtube for \"%player%\" and store the results in {_results::*},\tif search results are set:,\t\tmessage \"Did you know there are %size of search results% videos about you on YouTube?\" to player"
+		},
+		{
+			name: "User Named",
+			description: "Retrieve a user by their name. If the [s] is included in users than this will return a list.If the s is not included but their are multiple people with the same name, then the first one will be returned.This does NOT retrieve the user from Discord. This is from what your bots can see.",
+			patterns: [
+				"user[s] (with [the] name|named) %string% [in %-guild%]"
+			],
+			example: "discord command user <text>:,\ttrigger:,\t\tset {_} to user with the name arg-1 in event-guild,\t\treply with \"Oh, found them! %discord name of {_}%##%discriminator of {_}%\""
 		},
 		{
 			name: "Categories of guild",
@@ -1203,6 +1236,67 @@ export default {
 				"%guild/category%'[s] voice[(-| )]channels",
 			],
 			example: "on guild message receive:,\tset {_channels::*} to voice channels of event-guild,\tloop {_channels::*}:,\t\tbroadcast \"%name of loop-value%\""
+		},
+		{
+			name: "Channel of",
+			description: "Get the channel an invite was created for.",
+			patterns: [
+				"[the] [discord] channel[s] of %invite%",
+				"%invite%'[s] [discord] channel[s]",
+			],
+			example: "discord command parse <text>:,\tprefixes: /,\ttrigger:,\t\tretrieve the invites of event-guild ,\t\tset {in::*} to last grabbed invites,\t\tloop {in::*}:,\t\t\tif \"%loop-value%\" contains arg-1:,\t\t\t\tset {_} to loop-value,\t\tmake embed and send it to event-channel:,\t\t\tset the title of the embed to title with text \"Parsing results for invite: %invite url of {_}%\",\t\t\tset the colour of the embed to Cyan ,\t\t\tset the thumbnail of embed to \"https://cdn.discordapp.com/icons/236641445363056651/e51b2c2f4d539f7c18ae966d60992d25.png\",\t\t\tadd field named \"Max Uses\" with value \"%max uses of {_}%\" to embed ,\t\t\tadd field named \"Max Age (In Seconds)\" with value \"%max age of {_}%\" to embed,\t\t\tadd field named \"Time Created\" with value \"%creation date of {_}%\" to embed,\t\t\tadd field named \"Guild\" with value \"%guild of {_}%\" to embed,\t\t\tadd field named \"Channel\" with value \"%channel of {_}%\" to embed"
+		},
+		{
+			name: "New/Current Invite",
+			description: "If it isn't inside an invite creation scope, this expression returns a new invite. If it is inside an invite creation scope, it returns the invite that belongs to that scope.",
+			patterns: [
+				"[(the|an|[a] new)] invite",
+			],
+			example: "discord command rawr:,\tprefixes: /,\ttrigger:,\t\tcreate invite to event-channel with event-bot:,\t\t\tset max uses of the invite to 5,\t\t\tset {_} to the invite,\t\treply with \"%creation date of of {_}%\""
+		},
+		{
+			name: "Max Age",
+			description: "Set how long an invite that is being created in the invite creation scope should last. (In seconds).This defaults to 86400 seconds (24 Hours.). Set it to 0 if you want it to never expire. This number cannot be negative",
+			patterns: [
+				"[the] max age[s] of %invite%",
+				"%invite%'[s] max age[s]",
+			],
+			example: "discord command invite:,\tprefixes: /,\ttrigger:,\t\tcreate invite to event-channel:,\t\t\tset the max usage of the invite to 1,\t\t\tset the max age of the invite to 36,\t\t\tset {_} to the invite,\t\treply with \"%max age of {_}%\""
+		},
+		{
+			name: "Invite Max Usage",
+			description: "Get either how many times an invite can be used, or set how many times an invite can be used inside the invite creation scope.",
+			patterns: [
+				"[the] max (use[s]|usage)[s] of %invite%",
+				"%invite%'[s] max (use[s]|usage)[s]",
+			],
+			example: "discord command rawr:,\tprefixes: /,\ttrigger:,\t\tcreate invite to event-channel with event-bot:,\t\t\tset max uses of the invite to 5,\t\t\tset {_} to the invite,\t\treply with \"%max uses of {_}%\""
+		},
+		{
+			name: "Creation date of Invite",
+			description: "Get the time a discord invite was created.",
+			patterns: [
+				"[the] [invite] creation date[s] of %invite%",
+				"%invite%'[s] [invite] creation date[s]",
+			],
+			example: "discord command rawr:,\tprefixes: /,\ttrigger:,\t\tcreate invite to event-channel with event-bot:,\t\t\tset max uses of the invite to 5,\t\t\tset {_} to the invite,\t\treply with \"%creation date of of {_}%\""
+		},
+		{
+			name: "Invite Url of",
+			description: "Get the Url of a Discord invite.",
+			patterns: [
+				"[the] invite url[s] of %invite%",
+				"%invite%'[s] invite url[s]",
+			],
+			example: "discord command invite:,\tprefixes: /,\ttrigger:,\t\tcreate invite to event-channel:,\t\t\tset the max usage of the invite to 1,\t\t\tset {_} to the invite,\t\treply with \"Done! Created: %invite url of {_}%\""
+		},
+		{
+			name: "Retrieved Invites",
+			description: "Get the invites the retrieve invites effect retrieved.",
+			patterns: [
+				"[the] last (grabbed|retrieved) invites",
+			],
+			example: "discord command test:,\tprefixes: /,\ttrigger:,\t\tretrieve the invites of event-guild,\t\treply with \"%last grabbed invites%\""
 		},
 		{
 			name: "Color of Role",
@@ -1713,20 +1807,29 @@ export default {
 			example: "on user unbanned:"
 		},
 		{
+			name: "Role Added",
+			description: "Fired when a Member receives a new role or roles. You can use the `the roles` expression to get all the roles.",
+			patterns: [
+				"member role add[ed] [seen by %-string%]",
+			],
+			example: "on member role add:"
+		},
+		{
 			name: "Member Switch Voice Channel",
 			description: "Fired when a member switches voice channels.",
 			patterns: [
 				"member (switch|move) [voice] channel [seen by %-string%]",
 			],
-			example: "on member switch voice channel:,\tbroadcast \"%event-user% left %old channel% and joined %new channel%\""
+			example: "on member switch voice channel:
+,\tbroadcast \"%event-user% left %old channel% and joined %new channel%\""
 		},
 		{
 			name: "Guild Join",
 			description: "Fired when a user joins a guild",
 			patterns: [
-				"(guild|member) join (guild|server) [seen by %-string%]",
+				"(user|member) join (guild|server) [seen by %-string%]",
 			],
-			example: "on guild join:"
+			example: "on member join guild:"
 		},
 		{
 			name: "Guild Leave",
@@ -1743,6 +1846,14 @@ export default {
 				"[member] nick[name] (change|update) [seen by %-string%]",
 			],
 			example: "on nickname update:"
+		},
+		{
+			name: "Role Removed",
+			description: "Fired when a Member has a role or roles removed from them. You can use the `the roles` expression to get all the roles.",
+			patterns: [
+				"member role remove[d] [seen by %-string%]",
+			],
+			example: "on member role remove:"
 		},
 		{
 			name: "Message Deleted",
