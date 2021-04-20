@@ -13,15 +13,15 @@
     <div class="navbar-menu" class:is-active={active}>
         <div class="navbar-start">
 
-            <a class="navbar-item" href="/">
+            <a class="navbar-item" href="/VixioSite">
                 <span><i class="fas fa-book"></i></span> 
-                <span>Documentation</span>
+                <span style="margin-left: 5px;">Documentation</span>
             </a>
 
             <div class="navbar-item has-dropdown is-hoverable">
                 <a class="navbar-link" href="#!" on:click|preventDefault>
                     <span><i class="fab fa-github"></i></span>
-                    <span style="margin-left: 2%;">GitHub</span>
+                    <span style="margin-left: 5px;">GitHub</span>
                 </a>
 
                 <div class="navbar-dropdown">
@@ -33,7 +33,7 @@
 
             <a class="navbar-item" target="_blank" href="https://discord.gg/kNHmqYH"> 
                 <span><i class="fab fa-discord"></i></span>
-                <span style="margin-left: 2%;">Discord</span>
+                <span style="margin-left: 5px;">Discord</span>
             </a>
 
         </div>
