@@ -1,3 +1,34 @@
+<style>
+	:global(body.dark-mode) {
+		background-color: #0d1117;
+	}
+	:global(body.dark-mode) .title {
+		color: white !important;
+	}
+	.search-input {
+		background-color: transparent;
+	}
+	:global(body.dark-mode).search-input {
+		color: white;
+	}
+	.search-input::placeholder {
+		color: grey;
+	}
+
+	:global(::-webkit-scrollbar) {
+		width: 10px;
+	}
+
+	:global(::-webkit-scrollbar-thumb) {
+		border-radius: 20px;
+		background-color: rgb(59, 59, 59);
+	}
+
+	:global(::-webkit-scrollbar-track) {
+		background-color: rgb(30, 30, 30);
+	}
+</style>
+
 <script>
 
 	import { onMount } from 'svelte';
