@@ -1,3 +1,12 @@
+<style>
+	:global(body.dark-mode) .menu-list a {
+		color: white;
+	}
+    :global(body.dark-mode) .menu-list a:hover {
+        background-color: #161b22 !important;
+    }
+</style>
+
 <aside class="menu">
     <p class="menu-label">Search in</p>
     <ul class="menu-list">
